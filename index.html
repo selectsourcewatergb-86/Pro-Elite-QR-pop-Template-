@@ -477,7 +477,13 @@
   }
   .utilBtn svg{ width:16px; height:16px; fill: currentColor; opacity:.95; }
   .utilBtn:active{ transform: scale(.99); }
-
+.utilBtn:disabled{
+  opacity:.4;
+  cursor:not-allowed;
+  pointer-events:none;
+  filter: grayscale(30%);
+}
+  
   footer{
     padding: 0 18px 18px;
     display:flex;
@@ -1172,7 +1178,7 @@ END:VCARD`;
   if (qrDownloadBtn){
     qrDownloadBtn.addEventListener("click", () => {
       const url = window.location.href.split("#")[0];
-      downloadQR(url, { variant: (TIER === "elite" ? "standard" : "standard") });
+      downloadQR(url, { variant: "standard" });
     });
   }
 
