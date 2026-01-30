@@ -819,30 +819,30 @@
   // ============================================================
   //  TIER CONTROL — ONE TEMPLATE FOR PRO + ELITE
   // ============================================================
-  const TIER = "pro"; // "pro" | "elite"
-  // (If you ever want one-file for Starter too, we can add "starter" and hide Pro+ features)
+  /* === CUSTOMER_CONFIG_START === */
+const TIER = "starter"; // "starter" | "pro" | "elite"
 
   // ============================================================
   //  CUSTOMER CONFIG (edit per customer)
   // ============================================================
-  const FULL_NAME    = "Greg Buckner";
-  const COMPANY      = "Select Source Water";
-  const TAGLINE      = "Water Filtration • Softening • Reverse Osmosis";
-  const TITLE        = "Water Specialist";
+  const FULL_NAME    = "REPLACE_FULL_NAME";
+const COMPANY      = "REPLACE_COMPANY";
+const TAGLINE      = "REPLACE_TAGLINE";
+const TITLE        = "REPLACE_TITLE";
 
-  const PHONE_PRETTY = "(209) 769-4750";
-  const PHONE_TEL    = "12097694750"; // digits only
-  const EMAIL        = "Bucknergreg86@gmail.com";
-  const WEBSITE      = "https://selectsourcewater.com";
-  const BOOKING_LINK = "https://calendar.app.google/GLxLpmB7KNzAm6zi6";
+const PHONE_PRETTY = "REPLACE_PHONE_PRETTY";
+const PHONE_TEL    = "REPLACE_PHONE_TEL"; // digits only
+const EMAIL        = "REPLACE_EMAIL";
+const WEBSITE      = "REPLACE_WEBSITE";
+const BOOKING_LINK = "REPLACE_BOOKING_LINK";
 
-  // Pro+ nice touch:
-  const TEXT_PREFILL = "Hey! I just scanned your QR code — I’d like to book an appointment.";
+// Nice touch:
+const TEXT_PREFILL = "REPLACE_TEXT_PREFILL";
 
-  // Elite-only CTA (this is one of the big differentiators)
-  const ELITE_CTA_LABEL = "Claim Special Offer";
-  const ELITE_CTA_URL   = "https://selectsourcewater.com"; // change per Elite customer
-  // ============================================================
+// Elite-only CTA (Elite differentiator)
+const ELITE_CTA_LABEL = "REPLACE_ELITE_CTA_LABEL";
+const ELITE_CTA_URL   = "REPLACE_ELITE_CTA_URL";
+/* === CUSTOMER_CONFIG_END === */
 
   // Apply config
   document.title = `${FULL_NAME} | ${COMPANY}`;
@@ -873,20 +873,28 @@
   const chipSub  = document.getElementById("chipSub");
 
   if (TIER === "elite"){
-    tierBadge.textContent = "ELITE";
-    chipMain.textContent = "Elite eCard";
-    chipSub.textContent  = "Premium share tools";
-    chipMain.classList.add("elite");
-  } else {
-    tierBadge.textContent = "PRO";
-    chipMain.textContent = "Pro eCard";
-    chipSub.textContent  = "Scan-ready";
-  }
+  tierBadge.textContent = "ELITE";
+  chipMain.textContent = "Elite eCard";
+  chipSub.textContent  = "Premium share tools";
+  chipMain.classList.add("elite");
+} else if (TIER === "pro"){
+  tierBadge.textContent = "PRO";
+  chipMain.textContent = "Pro eCard";
+  chipSub.textContent  = "Scan-ready";
+} else {
+  tierBadge.textContent = "STARTER";
+  chipMain.textContent = "Starter eCard";
+  chipSub.textContent  = "Quick share";
+}
 
   // Pro+ features always visible (since this file is for Pro/Elite)
-  document.getElementById("utilityRow").style.display = "flex";
-  document.getElementById("qrHint").style.display = "block";
+  const isPro = (TIER === "pro" || TIER === "elite");
+const isElite = (TIER === "elite");
 
+// Pro+ features (QR tools)
+document.getElementById("utilityRow").style.display = isPro ? "flex" : "none";
+document.getElementById("qrHint").style.display = isPro ? "block" : "none";
+  
   // Elite-only CTA injection (differentiation)
   if (TIER === "elite"){
     const actions = document.getElementById("actions");
