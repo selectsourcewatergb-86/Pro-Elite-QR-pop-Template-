@@ -861,7 +861,10 @@ const ELITE_CTA_URL   = "REPLACE_ELITE_CTA_URL";
   siteLink.href = WEBSITE;
 
   document.getElementById("bookBtn").href = BOOKING_LINK;
-
+if (TIER === "starter"){
+  document.getElementById("bookBtn").style.display = "none";
+}
+  
   document.getElementById("callBtn").href  = `tel:${PHONE_TEL}`;
   document.getElementById("textBtn").href  = `sms:${PHONE_TEL}${TEXT_PREFILL ? `?&body=${encodeURIComponent(TEXT_PREFILL)}` : ""}`;
   document.getElementById("emailBtn").href = `mailto:${EMAIL}`;
@@ -887,7 +890,7 @@ const ELITE_CTA_URL   = "REPLACE_ELITE_CTA_URL";
   chipSub.textContent  = "Quick share";
 }
 
-  // Pro+ features always visible (since this file is for Pro/Elite)
+  // Pro+ features (QR tools) only for Pro/Elite
   const isPro = (TIER === "pro" || TIER === "elite");
 const isElite = (TIER === "elite");
 
@@ -896,7 +899,7 @@ document.getElementById("utilityRow").style.display = isPro ? "flex" : "none";
 document.getElementById("qrHint").style.display = isPro ? "block" : "none";
   
   // Elite-only CTA injection (differentiation)
-  if (TIER === "elite"){
+  if (isElite){
     const actions = document.getElementById("actions");
     const eliteBtn = document.createElement("a");
     eliteBtn.className = "btn elite";
@@ -1097,7 +1100,7 @@ END:VCARD`;
 
   function openQR(){
     const url = window.location.href.split("#")[0];
-    const isElite = (TIER === "elite");
+    // use the global isElite we already defined above
 
     sheetTitle.textContent = isElite ? "Elite Scan Mode" : "Scan My Card";
     sheetSub.textContent = isElite ? "Scan • Save • Connect instantly." : "Point your camera at the code to open this card.";
