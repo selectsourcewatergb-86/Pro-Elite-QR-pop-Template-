@@ -897,6 +897,13 @@ const isElite = (TIER === "elite");
 // Pro+ features (QR tools)
 document.getElementById("utilityRow").style.display = isPro ? "flex" : "none";
 document.getElementById("qrHint").style.display = isPro ? "block" : "none";
+  if (!isPro){
+  // extra safety: prevent any QR actions in Starter
+  const qrBtn = document.getElementById("qrBtn");
+  const qrDownloadBtn = document.getElementById("qrDownloadBtn");
+  if (qrBtn) qrBtn.disabled = true;
+  if (qrDownloadBtn) qrDownloadBtn.disabled = true;
+  }
   
   // Elite-only CTA injection (differentiation)
   if (isElite){
@@ -1170,8 +1177,8 @@ END:VCARD`;
   }
 
   function downloadQR(url, options){
-    const variant = options.variant || "standard";
-    const isElite = (TIER === "elite");
+  const variant = options.variant || "standard";
+  // use global isElite
 
     const temp = document.createElement("canvas");
     const qrModel = QR(url, "M");
